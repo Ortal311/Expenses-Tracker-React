@@ -5,6 +5,9 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
+  const [isValidTitle, setIsValidTitle] = useState(true);
+  const [isValidAmount, setIsValidAmount] = useState(true);
+  const [isValidDate, setIsValidDate] = useState(true);
 
   // const [userInput, setUserInput] = useState({
   //   enteredTitle: "",
@@ -54,17 +57,33 @@ const ExpenseForm = (props) => {
   const sumbitHandler = (event) => {
     event.preventDefault();
 
-    const expenseData = {
-      title: enteredTitle,
-      amount: +enteredAmount,
-      date: new Date(enteredDate),
-    };
+    if (enteredTitle === "" || enteredAmount === "" || enteredDate === "") {
+      if (enteredTitle === "") {
+        setIsValidTitle(false);
+      } else setIsValidTitle(true);
 
-    props.onSaveExpenseData(expenseData);
-    //back to empty - after we saved the users input
-    setEnteredTitle("");
-    setEnteredAmount("");
-    setEnteredDate("");
+      if (enteredAmount === "") {
+        setIsValidAmount(false);
+      } else setIsValidAmount(true);
+      if (enteredDate === "") {
+        setIsValidDate(false);
+      } else setEnteredDate(true);
+    } else {
+      setIsValidTitle(true);
+      setIsValidAmount(true);
+      setIsValidDate(true);
+      const expenseData = {
+        title: enteredTitle,
+        amount: +enteredAmount,
+        date: new Date(enteredDate),
+      };
+
+      props.onSaveExpenseData(expenseData);
+      //back to empty - after we saved the users input
+      setEnteredTitle("");
+      setEnteredAmount("");
+      setEnteredDate("");
+    }
   };
 
   return (
@@ -73,6 +92,7 @@ const ExpenseForm = (props) => {
         <div className="new-expense__control">
           <label>Title </label>
           <input
+            style={{ background: !isValidTitle ? "salmon" : "white" }}
             type="text"
             value={enteredTitle}
             onChange={titleChangeHandler}
@@ -81,6 +101,7 @@ const ExpenseForm = (props) => {
         <div className="new-expense__control">
           <label>Amount </label>
           <input
+            style={{ background: !isValidAmount ? "salmon" : "white" }}
             type="number"
             min="0.01"
             step="0.01"
@@ -91,6 +112,7 @@ const ExpenseForm = (props) => {
         <div className="new-expense__control">
           <label>Date </label>
           <input
+            style={{ background: !isValidDate ? "salmon" : "white" }}
             type="date"
             min="2019-01-01"
             max="2022-12-31"
