@@ -5,7 +5,7 @@
 My first React project!
 A simple program where you can track your annual expenses.
 
-## Technologies  🖥
+## Technologies  
 
  - React
   - HTML
@@ -13,7 +13,7 @@ A simple program where you can track your annual expenses.
 
 
 
-## How to run the code 🕹
+## How to run the code 
 
 ```bash
   npm install
@@ -22,7 +22,7 @@ A simple program where you can track your annual expenses.
   npm start
 ```
 
-## Screenshots  📸
+## Screenshots  
 
  ### Home Page
  
